@@ -8,9 +8,11 @@ class TestGuest(unittest.TestCase):
         self.song1 = Song("Beat It", "Michael Jackson")
         self.song2 = Song("Hip To Be Square", "Huey Lewis And The News")
         self.song3 = Song("Shake It Off", "Taylor Swift")
+        self.song4 = Song("Sunshine On Leith", "The Proclaimers")
         self.playlist = [self.song1, self.song2, self.song3]
         self.guest1 = Guest("Dave")
         self.guest2 = Guest("Pat", self.song2)
+        self.guest3 = Guest("Dougray", self.song4)
 
     def test_guest_is_philistine(self):
         self.assertEqual(None, self.guest1.fav_song)
@@ -28,6 +30,9 @@ class TestGuest(unittest.TestCase):
 
     def test_guest_can_be_boisterous(self):
         self.assertEqual("YAAAAAAASSSSS!", self.guest2.celebrate(self.playlist))
+    
+    def test_guest_can_be_disappointed(self):
+        self.assertEqual(None, self.guest3.celebrate())
     
     def test_guest_does_not_know_playlist(self):
         self.assertEqual(None, self.guest1.celebrate())
