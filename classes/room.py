@@ -15,12 +15,15 @@ class Room:
     def admit_guests(self, group):
         return [guest for guest in group if Guest.check_balance(guest, self.fee)]
 
+    def check_room_space(self, group):
+        return len(self.admit_guests(group)) <= (self.capacity - len(self.patrons))
+
     def collect_fees(self, group):
         for guest in group:
             self.take_money(Guest.spend_money(guest, self.fee))
     
     def check_in(self, group):
-        if len(self.admit_guests(group)) != 0:
+        if len(self.admit_guests(group)) != 0 and self.check_room_space(self.admit_guests(group)):
             self.collect_fees(self.admit_guests(group))
             self.patrons += self.admit_guests(group)
     

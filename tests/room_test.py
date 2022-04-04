@@ -50,6 +50,12 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(0, self.room.takings)
         self.assertEqual(10, self.guest1.cash)
     
+    def test_room_is_too_busy(self):
+        self.room.capacity = 2
+        self.assertEqual(False, self.room.check_room_space(self.room.admit_guests(self.group)))
+        self.room.check_in(self.group)
+        self.assertEqual(0, len(self.room.patrons))
+    
     def test_playlist_can_be_updated(self):
         self.assertEqual(3, len(self.room.playlist))
         self.room.add_song(self.song4)
