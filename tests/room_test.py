@@ -17,11 +17,35 @@ class TestRoom(unittest.TestCase):
         self.guest3 = Guest("Miley", self.song3)
         self.guest4 = Guest("Dougray", self.song4)
         self.group = [self.guest1, self.guest2, self.guest3, self.guest4]
+        self.guest1.lift_cash(10)
+        self.guest2.lift_cash(100)
+        self.guest3.lift_cash(30)
+        self.guest4.lift_cash(80)
     
     def test_room_is_empty(self):
         self.assertEqual(0, len(self.room.patrons))
-    
-    def test_room_can_check_in_guest(self):
+
+    def test_room_can_take_money(self):
+        self.room.take_money(self.room.fee)
+        self.assertEqual(12, self.room.takings)
+
+    def test_room_can_filter_group(self):
+        self.assertEqual(3, len(self.room.admit_guests(self.group)))
+
+    def test_room_can_check_in_group_selectively(self):
         self.room.check_in(self.group)
-        self.assertEqual(4, len(self.room.patrons))
-        self.assertEqual(self.group, self.room.patrons)
+        self.assertEqual(3, len(self.room.admit_guests(self.group)))
+        self.assertEqual(3, len(self.room.patrons))
+        self.assertEqual((self.room.fee * 3), self.room.takings)
+        self.assertEqual(10, self.guest1.cash)
+        self.assertEqual(88, self.guest2.cash)
+        self.assertEqual(18, self.guest3.cash)
+        self.assertEqual(68, self.guest4.cash)
+    
+    def test_group_has_no_money(self):
+        skinflints = [self.guest1]
+        self.room.check_in(skinflints)
+        self.assertEqual(0, len(self.room.admit_guests(skinflints)))
+        self.assertEqual(0, len(self.room.patrons))
+        self.assertEqual(0, self.room.takings)
+        self.assertEqual(10, self.guest1.cash)

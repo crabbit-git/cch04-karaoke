@@ -10,3 +10,11 @@ class Guest:
     def celebrate(self, playlist = None):
         if playlist != None and self.fav_song in playlist:
             return "YAAAAAAASSSSS!"
+    
+    def check_balance(self, price):
+        return self.cash >= price
+    
+    def spend_money(self, price):
+        if self.check_balance(price):
+            self.cash -= price
+            return price
