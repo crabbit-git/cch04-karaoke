@@ -49,3 +49,8 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(0, len(self.room.patrons))
         self.assertEqual(0, self.room.takings)
         self.assertEqual(10, self.guest1.cash)
+    
+    def test_playlist_can_be_updated(self):
+        self.assertEqual(3, len(self.room.playlist))
+        self.room.add_song(self.song4)
+        self.assertEqual(4, len(self.room.playlist))

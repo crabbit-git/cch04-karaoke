@@ -32,7 +32,7 @@ class TestGuest(unittest.TestCase):
         self.assertEqual("YAAAAAAASSSSS!", self.guest2.celebrate(self.playlist))
     
     def test_guest_can_be_disappointed(self):
-        self.assertEqual(None, self.guest3.celebrate())
+        self.assertEqual("Aww...", self.guest3.celebrate(self.playlist))
     
     def test_guest_does_not_know_playlist(self):
         self.assertEqual(None, self.guest1.celebrate())

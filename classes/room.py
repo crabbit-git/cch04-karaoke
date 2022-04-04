@@ -23,3 +23,6 @@ class Room:
         if len(self.admit_guests(group)) != 0:
             self.collect_fees(self.admit_guests(group))
             self.patrons += self.admit_guests(group)
+    
+    def add_song(self, song):
+        self.playlist.append(song)

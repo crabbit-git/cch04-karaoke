@@ -8,8 +8,11 @@ class Guest:
         self.cash += transact
     
     def celebrate(self, playlist = None):
-        if playlist != None and self.fav_song in playlist:
-            return "YAAAAAAASSSSS!"
+        if playlist != None:
+            if self.fav_song in playlist:
+                return "YAAAAAAASSSSS!"
+            else:
+                return "Aww..."
     
     def check_balance(self, price):
         return self.cash >= price
